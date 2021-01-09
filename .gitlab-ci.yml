@@ -29,18 +29,6 @@ install_dependencies:
   script:
     - npm  ci
 
-Build_api:
-  stage: build
-  before_script:
-     - npm run clean
-  script:
-    - npm run build
-
-test_api:
-  stage: test
-  script:
-    - npm test
-
 deploy_staging:
   image: ruby:latest
   only:
