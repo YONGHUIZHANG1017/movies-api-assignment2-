@@ -10,6 +10,7 @@ import passport from './authenticate';
 import genresRouter from './api/genres';
 import SearchRouter from './api/Search';
 import popularRouter from './api/popular';
+import upcomingRouter from './api/upcoming';
 dotenv.config();
 const errHandler = (err, req, res, next) => {
   /* if the error in development then send stack trace to display whole error,
@@ -40,8 +41,20 @@ app.use(session({
 app.use('/api/users', usersRouter);
 app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
 app.use('/api/genres', genresRouter);
+app.use('/movies/api/genres', genresRouter);
 app.use('/api/Search',SearchRouter);
 app.use('/api/popular',popularRouter);
+app.use('/api/upcoming',upcomingRouter);
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
+
+
+// export const getMovies = () => {
+//   return fetch(
+//      '/api/movies',{headers: {
+//        'Authorization': window.localStorage.getItem('token')
+//     }
+//   }
+//   ).then(res => res.json());
+// };

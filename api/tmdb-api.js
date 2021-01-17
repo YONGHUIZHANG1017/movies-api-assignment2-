@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+const REACT_APP_TMDB_KEY='9697a343ae9f074a6f4962d157703c07';
 export const getMovies = () => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=1`
@@ -14,12 +16,9 @@ export const getMovie = id => {
 
 export const getGenres = () => {
   return fetch(
-    "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-    process.env.REACT_APP_TMDB_KEY +
-    "&language=en-US"
-  )
+    "https://api.themoviedb.org/3/genre/movie/list?api_key=" +process.env.REACT_APP_TMDB_KEY + "&language=en-US")
     .then(res => res.json())
-    .then(json => json.genres);
+    .then(json => json);
 };
 export const getMovieReviews = id => {
   return fetch(
@@ -28,13 +27,19 @@ export const getMovieReviews = id => {
     .then(res => res.json())
     .then(json => json.results);
 };
+
+
 export const getUpcomingMovies = () => {
+   console.log(1111);
+
   return fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${REACT_APP_TMDB_KEY}&language=en-US&page=1`
   )
     .then(res => res.json())
     .then(json => json.results);
 };
+
+
 export const getPopularMovies = () => {
   return fetch(
     `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
