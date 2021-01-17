@@ -1,13 +1,18 @@
 import './db';
 import dotenv from 'dotenv';
 import express from 'express';
-import moviesRouter from './api/movies';
+import reviewsRouter from './api/MoiveReviews';
 import bodyParser from 'body-parser';
 import {loadUsers, loadMovies} from './seedData';
 import usersRouter from './api/users';
 import session from 'express-session';
 import passport from './authenticate';
 import genresRouter from './api/genres';
+import SearchRouter from './api/Search';
+import popularRouter from './api/popular';
+import upcomingRouter from './api/upcoming';
+import movieRouter from './api/getMovie';
+import moviesRouter from './api/getMovies';
 dotenv.config();
 const errHandler = (err, req, res, next) => {
   /* if the error in development then send stack trace to display whole error,
@@ -25,7 +30,8 @@ if (process.env.SEED_DB) {
   loadMovies();
 }
 app.use(express.static('public'));
-app.use('/api/movies', moviesRouter);
+app.use('/api/MovieReviews', reviewsRouter);
+
 app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -36,8 +42,17 @@ app.use(session({
   saveUninitialized: true
 }));
 app.use('/api/users', usersRouter);
-app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
 app.use('/api/genres', genresRouter);
+app.use('/movies/api/genres', genresRouter);
+app.use('/api/Search',SearchRouter);
+app.use('/api/popular',popularRouter);
+app.use('/api/upcoming',upcomingRouter);
+app.use('/api/getMovie',movieRouter);
+app.use('/movies/api/getMovie/movie',movieRouter);
+app.use('/api/getMovie/movie',movieRouter);
+app.use('/api/getMovies',moviesRouter);
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
+
+

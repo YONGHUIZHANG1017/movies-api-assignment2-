@@ -20,7 +20,6 @@ stages:
   - install
   - build
   - test
-  - staging
 
 # Jobs:
 
@@ -29,6 +28,7 @@ install_dependencies:
   script:
     - npm  ci
 
+<<<<<<< HEAD
 deploy_staging:
   image: ruby:latest
   only:
@@ -41,3 +41,16 @@ deploy_staging:
   script:  
     - dpl --provider=heroku --app=$HEROKU_APP_NAME_STAGING --api-key=$HEROKU_API_KEY
     - echo "Deployed to staging server"
+=======
+Build_api:
+  stage: build
+  before_script:
+     - npm run clean
+  script:
+    - npm run build
+
+test_api:
+  stage: test
+  script:
+    - npm test
+>>>>>>> master
