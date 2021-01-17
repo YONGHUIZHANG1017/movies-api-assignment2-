@@ -163,8 +163,6 @@ export const searchMovies = (query) => {
 }
 
 
-~~~
-
 ## Extra features
 
 . . Briefly explain any non-standard features, functional or non-functional, developed for the app.  
@@ -172,3 +170,52 @@ export const searchMovies = (query) => {
 ## Independent learning.
 
 . . State the non-standard aspects of React/Express/Node (or other related technologies) that you researched and applied in this assignment . .  
+
+# Assignment 2 - Agile Software Practice.
+
+Name: Yonghui Zhang
+
+## Target Web API.
+
+...... Document the Web API that is the target for this assignment's CI/CD pipeline. Include the API's endpoints and any other features relevant to the creation of a suitable pipeline, e.g.
+
++ Get /api/movies - returns an array of movie objects.
++ Get /api/movies/:id - returns detailed information on a specific movie.
++ Put /api/movies/:id - update a specific movie. The request payload includes the some/all of the following movie properties to be updated: title, genre list, release date.
++ Post /api/movies - add a new movie to the database.
++ Get /api/genres -get movies genres.
++ Get /api/popular - get popular movies
++ Get /api/Search - get search function
++ Get /api/MovieReviews/:id - get user review.
++ Post /api/MovieReviws -p ost reviews.
++ Get /api/upcoming - get upcoming movies  
+
+## Error/Exception Testing.
+
+.... From the list of endpoints above, specify those that have error/exceptional test cases in your test code, the relevant test file and the nature of the test case(s), e.g.
+
++ Post /api/movies - test when the new movie has no title, invalid release date, empty genre list. Test adding a movie without prior authentication. See tests/functional/api/movies/index.js 
+
+## Continuous Delivery/Deployment.
+
+..... Specify the URLs for the staging and production deployments of your web API, e.g.
+
++ https://dashboard.heroku.com/apps/movies-api-staging-5259/ - Staging deployment
++ https://movies-api-production.herokuapp.com/ - Production
+
+.... Show a screenshots from the overview page for the two Heroku apps e,g,
+
++ Staging app overview 
+
+![][stagingapp]
+
++ Production app overview 
+
+[ , , , screenshot here . . . ]
+
+[If an alternative platform to Heroku was used then show the relevant page from that platform's UI.]
+
+
+
+
+[stagingapp]: ./img/heroku.png
