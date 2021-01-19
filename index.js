@@ -1,5 +1,6 @@
 import './db';
 import dotenv from 'dotenv';
+import loglevel from 'loglevel';
 import express from 'express';
 import reviewsRouter from './api/MoiveReviews';
 import bodyParser from 'body-parser';
@@ -12,8 +13,19 @@ import SearchRouter from './api/Search';
 import popularRouter from './api/popular';
 import upcomingRouter from './api/upcoming';
 import movieRouter from './api/getMovie';
-import moviesRouter from './api/getMovies';
+import getmoviesRouter from './api/getMovies';
+import moviesRouter from './api/movies';
 dotenv.config();
+if (process.env.NODE_ENV === 'test') {
+  loglevel.setLevel('warn')
+} else {
+  loglevel.setLevel('info')
+}
+
+if (process.env.SEED_DB === 'true' && process.env.NODE_ENV === 'development') {
+  loadUsers();
+}
+
 const errHandler = (err, req, res, next) => {
   /* if the error in development then send stack trace to display whole error,
   if it's in production then just send error message  */
@@ -23,17 +35,12 @@ const errHandler = (err, req, res, next) => {
   res.status(500).send(`Hey!! You caught the error 👍👍, ${err.stack} `);
 };
 const app = express();
+const port = process.env.PORT ;
 
-const port = process.env.PORT;
-if (process.env.SEED_DB) {
-  loadUsers();
-  loadMovies();
-}
+app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use('/api/MovieReviews', reviewsRouter);
-
 app.use(passport.initialize());
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(errHandler);
 app.use(session({
@@ -41,6 +48,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+app.use('/api/movies', moviesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/genres', genresRouter);
 app.use('/movies/api/genres', genresRouter);
@@ -50,9 +58,9 @@ app.use('/api/upcoming',upcomingRouter);
 app.use('/api/getMovie',movieRouter);
 app.use('/movies/api/getMovie/movie',movieRouter);
 app.use('/api/getMovie/movie',movieRouter);
-app.use('/api/getMovies',moviesRouter);
-app.listen(port, () => {
-  console.info(`Server running at ${port}`);
+app.use('/api/getMovies',getmoviesRouter);
+let server = app.listen(port, () => {
+  loglevel.info(`Server running at ${port}`);
 });
-
+module.exports = server
 
