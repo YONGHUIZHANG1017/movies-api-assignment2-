@@ -195,7 +195,7 @@ Name: Yonghui Zhang
 .... From the list of endpoints above, specify those that have error/exceptional test cases in your test code, the relevant test file and the nature of the test case(s), e.g.
 
 + Post /api/movies - test when the new movie has no title, invalid release date, empty genre list. Test adding a movie without prior authentication. See tests/functional/api/movies/index.js 
-
++ Post /api/genres - test when the new movie has no genres, invalid release date, empty genre list. Test adding a movie without prior authentication. See tests/functional/api/genres/index.js 
 ## Continuous Delivery/Deployment.
 
 ..... Specify the URLs for the staging and production deployments of your web API, e.g.
